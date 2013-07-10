@@ -126,4 +126,8 @@ alias web='cd /var/www'
 alias install='sudo apt-get install'
 alias debinstall='sudo dpkg -i'
 alias update='sudo apt-get update'
+alias upgrade='sudo apt-get upgrade'
 alias desktop='cd ~/Desktop'
+alias recetas='cd ~/Desktop/Recetas'
+alias escuelaweb='cd ~/Desktop/escuelaweb'
+source ~/.rvm/scripts/rvm
