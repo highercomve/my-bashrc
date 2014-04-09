@@ -1,6 +1,13 @@
-function parse_git_branch {
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\[\1\]/'
+function parse_git_dirty {
+  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo "*"
 }
+function parse_git_branch {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
+}
+
+#function parse_git_branch {
+#  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\[\1\]/'
+#}
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
@@ -107,19 +114,8 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
-
-# {{{
-# Node Completion - Auto-generated, do not touch.
-shopt -s progcomp
-for f in $(command ls ~/.node-completion); do
-  f="$HOME/.node-completion/$f"
-  test -f "$f" && . "$f"
-done
-# }}}
 
 alias home='cd ~/'
 alias web='cd /var/www'
@@ -127,7 +123,14 @@ alias install='sudo apt-get install'
 alias debinstall='sudo dpkg -i'
 alias update='sudo apt-get update'
 alias upgrade='sudo apt-get upgrade'
-alias desktop='cd ~/Desktop'
-alias recetas='cd ~/Desktop/Recetas'
-alias escuelaweb='cd ~/Desktop/escuelaweb'
+alias desktop='cd ~/Proyectos'
+alias recetas='cd ~/Proyectos/Recetas'
+alias escuelaweb='cd ~/Proyectos/escuelaweb'
+source ~/.nvm/nvm.sh
 source ~/.rvm/scripts/rvm
+ANDROID_HOME=/home/sergio/android
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+PATH=$PATH:$HOME/RubyMine/bin
+PATH=$PATH:/home/sergio/android/sdk/tools:/home/sergio/android/sdk/build-tools:/home/sergio/android/sdk/platform-tools/ 
+PATH=$PATH:/opt/node-webkit/
+## PATH=$PATH:/opt/storm/
